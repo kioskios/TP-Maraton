@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>MaratonUNGS</title>
+
+    <!-- Estilo Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet"
+        href="https://mdbcdn.b-cdn.net/wp-content/themes/mdbootstrap4/docs-app/css/dist/mdb5/standard/core.min.css">
+
+    <!-- Estilo propio -->
+    <link rel="stylesheet" href="../css/main.css">
+
+</head>
+
+<body>
+    <header class="p-3 text-bg-dark">
+        <div class="container">
+            <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+                <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
+                    <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg>
+                </a>
+
+                <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
+                    <li><a href="../index.html" class="nav-link px-2 text-secondary">Inicio</a></li>
+                    <li><a href="./pages/healthcenter.html" class="nav-link px-2 text-white">Centros de Salud</a></li>
+                    <li><a href="./pages/track.html" class="nav-link px-2 text-white">Ruta Carrera</a></li>
+                    <li><a href="./pages/about.html" class="nav-link px-2 text-white">Contacto</a></li>
+                </ul>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="py-5 text-center">
+            <img class="d-block mx-auto mb-4" src="../img/ungs.png" alt="" width="15%" height="15%">
+            <h2>Formulario de Registro</h2>
+        </div>
+
+        <div class="row g-8">
+            <div class="col-md-auto col-lg-auto">
+                <form novalidate method="post" action="../index.html">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                            <label for="firstName" class="form-label">Nombre</label>
+                            <input type="text" class="form-control" id="firstName" placeholder="" value="" required="">
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="lastName" class="form-label">Apellido</label>
+                            <input type="text" class="form-control" id="lastName" placeholder="" value="" required="">
+                        </div>
+
+                        <div class="col-sm-2">
+                            <label for="edad" class="form-label">Edad</label>
+                            <input type="text" class="form-control" id="age" placeholder="" value="" required="">
+                        </div>
+
+                        <div class="col-sm-4">
+                            <label for="dni" class="form-label">DNI</label>
+                            <input type="text" class="form-control" id="dni" placeholder="" value="" required="">
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" placeholder="you@example.com">
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="user" class="form-label">Usuario</label>
+                            <input type="text" class="form-control" id="user" placeholder="">
+                        </div>
+
+                        <div class="col-sm-6">
+                            <label for="password" class="form-label">Contraseña</label>
+                            <input type="password" class="form-control" id="password" placeholder="">
+                        </div>
+                    </div>
+
+                    <hr class="my-4">
+
+                    <div class="row g-8">
+                        <h5 class="mb-3">Sponsor</h4>
+                            <div class="col-sm-6">
+                                <select id="sponsor-select" class="form-select form-select-lg mb-3"
+                                    aria-label=".form-select-lg example" onchange="showSponsorOption()">
+                                    <option selected value="patrocinado">Patrocinado</option>
+                                    <option value="propio">Propio</option>
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <select id="sponsor" class="form-select form-select-lg mb-3"
+                                    aria-label=".form-select-lg example">
+                                    <option selected>BuzzCola</option>
+                                    <option>Nakidas</option>
+                                    <option>MCBurger</option>
+                                </select>
+                                <input style="visibility: hidden; position: fixed;" type="text" class="form-control"
+                                    id="ownSponsor" placeholder="Nombre Sponsor Propio" value="" required="">
+                            </div>
+                    </div>
+
+
+                    <div class="my-3" id="payMetod" style="visibility: hidden; position: fixed;">
+                        <hr class="my-4">
+                        <h5 class="mb-3">Metodo de Pago</h5>
+                        <div class="form-check">
+                            <input id="rapiFacil" name="paymentMethod" type="radio" class="form-check-input" checked=""
+                                required="">
+                            <label class="form-check-label" for="rp">Rapi Facil</label>
+                        </div>
+                        <div class="form-check">
+                            <input id="pagoEfectivo" name="paymentMethod" type="radio" class="form-check-input"
+                                required="">
+                            <label class="form-check-label" for="pe">Pago en Efectivo</label>
+                        </div>
+                    </div>
+                    <div class="row justify-content-lg-end">
+                        <hr class="my-4">
+                        <div class="col-4">
+                            <button class="w-60 btn btn-primary btn-lg" onclick="success()">Registrar</button>
+                        </div>
+                    </div>
+                </form>
+                <hr>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-dark text-center text-white">
+        <!-- Grid container -->
+        <div class="container p-4 pb-0">
+            <!-- Section: Social media -->
+            <section class="mb-4">
+                <!-- Instagram -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/anmatths/" role="button"><i
+                        class="fab fa-instagram"></i></a>
+
+                <!-- Linkedin -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/matias-alpuin/" role="button"><i
+                        class="fab fa-linkedin-in"></i></a>
+
+                <!-- Github -->
+                <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/kioskios" role="button"><i
+                        class="fab fa-github"></i></a>
+            </section>
+            <!-- Section: Social media -->
+        </div>
+        <!-- Grid container -->
+
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+            © 2020 Copyright: Modelos creados usando bootstrap
+            <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+        </div>
+        <!-- Copyright -->
+    </footer>
+
+    <!--own scripts-->
+    <script type="text/javascript" src="../js/functions.js"></script>
+
+    <!--Bootstrap scripts-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+        integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js"
+        integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
+        crossorigin="anonymous"></script>
+
+</body>
+
+</html>
