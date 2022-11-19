@@ -27,18 +27,18 @@ function showSponsorOption() {
     }
 }
 
-function downloadJsonFromApi(url) {
-    const http = new XMLHttpRequest();
-    http.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-            //console.log(this.responseText);
-            return this.responseText.value;
-        }
-    }
+// function downloadJsonFromApi(url) {
+//     const http = new XMLHttpRequest();
+//     http.onreadystatechange = function () {
+//         if (this.readyState == 4 && this.status == 200) {
+//             //console.log(this.responseText);
+//             return this.responseText.value;
+//         }
+//     }
 
-    http.open("GET", url);
-    http.send();
-}
+//     http.open("GET", url);
+//     http.send();
+// }
 
 function checkCompletField() {
 
@@ -53,6 +53,21 @@ function addPointsOnMap(array, map) {
         console.log({ element });
         L.marker(element.coordenadas).addTo(map).bindPopup(element.nombre);
     });
+}
+
+function popUpPointOnMap(id, map) {
+    datoJson = dataTrakPosition.filter(
+        function (item) {
+            return item.id == id;
+        }
+    );
+    htmlContent = '<h5>' + datoJson[0].nombre + ' </h5><p>' + datoJson[0].direccion + '</p>';
+    L.popup({
+        offset: [0, -30]
+    })
+        .setLatLng(datoJson[0].coordenadas)
+        .setContent(htmlContent)
+        .openOn(map);
 }
 
 

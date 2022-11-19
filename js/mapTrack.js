@@ -1,4 +1,3 @@
-
 const mapTrack = L.map('mapTrack').fitWorld();
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -9,42 +8,22 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 //Punto UNGS
 mapTrack.setView([-34.52183764208916, -58.69985179010459], 17);
 
-//URLS
-const dataTrakPosition = getTracks();
 
-function createButtonTrackList() {
-    var tagButtonStart = '<button type="button" class="list-group-item list-group-item-action" onclick="popUpRunnerPointOnMap(';
-    var idNumber;
-    var nombre;
-    var tagButtonEnd;
-    var completeTagButton = '';
-    dataTrakPosition.forEach((element) => {
-        idNumber = element.id;
-        nombre = element.nombre;
-        tagButtonEnd = idNumber + ')">' + nombre + '</button>';
-        completeTagButton += tagButtonStart + tagButtonEnd;
+//Dibujar circuito:
+function drawTrack(response) {
+    var htmlContent = ''
+    var polyline;
+    response.tracks.forEach(element => {
+        htmlContent = '<h6>Pista ID ' + element.id + '</h6>';
+        polyline = L.polyline(element.coordinates, { color: 'blue',weight:3}).bindPopup(htmlContent).addTo(mapTrack);
+        polyline.on('popupopen', function (e) {
+            var popup = e.popup;
+            htmlContent = '<h6>Pista ID ' + element.id + '</h6><p>Coordenadas: ' + popup.getLatLng().lng + ', ' + popup.getLatLng().lat + '</p>';            
+            popup.setContent(htmlContent);
+        });
     });
-
-    divElement = document.createElement('div');
-    divElement.innerHTML = completeTagButton;
-    document.getElementById('buttonTrackList').appendChild(divElement);
-
 }
 
-function popUpRunnerPointOnMap(id) {
-    datoJson = dataTrakPosition.filter(
-        function (item) {
-            return item.id == id;
-        }
-    );
-    htmlContent = '<h5>' + datoJson[0].nombre + ' </h5><p>' + datoJson[0].direccion + '</p>';
-    L.popup({
-        offset: [0, -30]
-    })
-        .setLatLng(datoJson[0].coordenadas)
-        .setContent(htmlContent)
-        .openOn(mapTrack);
-}
-
-console.log(dataTrakPosition);
+getTracks().then(drawTrack);
+//console.log(dataTrakPosition);
 //createButtonTrackList();
