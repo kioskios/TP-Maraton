@@ -3,7 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
     <title>MaratonUNGS</title>
 
     <!-- Estilo Bootstrap -->
@@ -15,6 +17,7 @@
 
     <!-- Estilo propio -->
     <link rel="stylesheet" href="../css/signin.css">
+    <link rel="stylesheet" href="../css/main.css">
 
 </head>
 
@@ -30,14 +33,25 @@
 
                 <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
                     <li><a href="../index.html" class="nav-link px-2 text-secondary">Inicio</a></li>
-                    <li><a href="./pages/healthcenter.html" class="nav-link px-2 text-white">Centros de Salud</a></li>
-                    <li><a href="./pages/track.html" class="nav-link px-2 text-white">Ruta Carrera</a></li>
-                    <li><a href="./pages/about.html" class="nav-link px-2 text-white">Contacto</a></li>
+                    <li><a href="../pages/healthcenter.html" class="nav-link px-2 text-white">Centros de Salud</a></li>
+                    <li><a href="../pages/track.html" class="nav-link px-2 text-white">Ruta Carrera</a></li>
+                    <li><a href="../pages/about.html" class="nav-link px-2 text-white">Contacto</a></li>
                 </ul>
             </div>
         </div>
     </header>
 
+    <main>
+        <div class="row g-0">
+            <div class="col-md-10">
+                <div id="mapHealthCenter"></div>
+            </div>
+            <div class="col-md-2">
+                <h5 class="mb-md-center" style="text-align: center; margin: 10px;">Centros de Salud</h5>
+                <div class="list-group" id="buttonCenterList"></div>
+            </div>
+        </div>
+    </main>
 
     <footer class="bg-dark text-center text-white">
         <!-- Grid container -->
@@ -45,12 +59,12 @@
             <!-- Section: Social media -->
             <section class="mb-4">
                 <!-- Instagram -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/anmatths/" role="button"><i
-                        class="fab fa-instagram"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.instagram.com/anmatths/"
+                    role="button"><i class="fab fa-instagram"></i></a>
 
                 <!-- Linkedin -->
-                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/matias-alpuin/" role="button"><i
-                        class="fab fa-linkedin-in"></i></a>
+                <a class="btn btn-outline-light btn-floating m-1" href="https://www.linkedin.com/in/matias-alpuin/"
+                    role="button"><i class="fab fa-linkedin-in"></i></a>
 
                 <!-- Github -->
                 <a class="btn btn-outline-light btn-floating m-1" href="https://github.com/kioskios" role="button"><i
@@ -68,9 +82,6 @@
         <!-- Copyright -->
     </footer>
 
-    <!--own scripts-->
-    <script type="text/javascript" src="../js/functions.js"></script>
-
     <!--Bootstrap scripts-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
@@ -82,6 +93,16 @@
         integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk"
         crossorigin="anonymous"></script>
 
+    <!--Leafletjs scripts-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+        integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+        integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+
+    <!--own scripts-->
+    <script src="../js/functions.js"></script>
+    <script src="../js/mapHealthCenters.js"></script>
 </body>
 
 </html>

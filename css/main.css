@@ -1,0 +1,20 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+#mapHealthCenter {
+    padding: 0px;
+    margin: 0px;
+    height: 40vw;
+    width: 100%;
+    border: 1px solid black;
+}
+
+#mapTrack {
+    padding: 0px;
+    margin: 0px;
+    height: 40vw;
+    width: 100%;
+    border: 1px solid black;
+}
