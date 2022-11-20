@@ -27,19 +27,6 @@ function showSponsorOption() {
     }
 }
 
-// function downloadJsonFromApi(url) {
-//     const http = new XMLHttpRequest();
-//     http.onreadystatechange = function () {
-//         if (this.readyState == 4 && this.status == 200) {
-//             //console.log(this.responseText);
-//             return this.responseText.value;
-//         }
-//     }
-
-//     http.open("GET", url);
-//     http.send();
-// }
-
 function checkCompletField() {
 
 }
@@ -47,8 +34,6 @@ function checkCompletField() {
 function success() {
     alert('Registro exitoso!');
 }
-
-
 
 function popUpPointOnMap(id, map) {
     datoJson = dataTrakPosition.filter(

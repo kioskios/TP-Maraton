@@ -80,22 +80,6 @@ function createButtonRunnerList(response) {
 }
 
 //Dibujar camaras en circuito:
-// function drawCamerasByTrackID(response) {
-//     var htmlContent = ''
-//     var polyline;
-//     response.webcams.forEach(element => {
-//         htmlContent = '<h6>Pista ID ' + element.id + '</h6>';
-//         polyline = L.polyline(element.coordinates, { color: 'blue', weight: 3 }).bindPopup(htmlContent).addTo(mapTrack);
-//         polyline.on('popupopen', function (e) {
-//             var popup = e.popup;
-//             htmlContent = '<h6>Pista ID ' + element.id + '</h6><p>Coordenadas: ' + popup.getLatLng().lng + ', ' + popup.getLatLng().lat + '</p>';
-//             popup.setContent(htmlContent);
-//         });
-//     });
-//     createButtonCameraList(response);
-// }
-
-//Dibujar camaras en circuito:
 function drawCamerasByTrackID(response) {
     response.webcams.forEach((element) => {
         htmlContent = '<p>Camera ID:' + element.id + ' </p><p> Frecuencia:' + element.frecuency + '</p>';
