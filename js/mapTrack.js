@@ -49,9 +49,8 @@ function popUpTrackPointOnMap(id, lat, lon) {
         .setLatLng({ "lat": lat, "lon": lon })
         .setContent(htmlContent)
         .openOn(mapTrack);
-
     getRunnersByTracksID(id).then(createButtonRunnerList);
-    drawCamerasByTrackID(id).then(createButtonCameraList);
+    getCameraByTrackID(id).then(drawCamerasByTrackID);
 }
 
 //Armar lista de corredores por id de pista
@@ -77,17 +76,26 @@ function createButtonRunnerList(response) {
 }
 
 //Dibujar camaras en circuito:
+// function drawCamerasByTrackID(response) {
+//     var htmlContent = ''
+//     var polyline;
+//     response.webcams.forEach(element => {
+//         htmlContent = '<h6>Pista ID ' + element.id + '</h6>';
+//         polyline = L.polyline(element.coordinates, { color: 'blue', weight: 3 }).bindPopup(htmlContent).addTo(mapTrack);
+//         polyline.on('popupopen', function (e) {
+//             var popup = e.popup;
+//             htmlContent = '<h6>Pista ID ' + element.id + '</h6><p>Coordenadas: ' + popup.getLatLng().lng + ', ' + popup.getLatLng().lat + '</p>';
+//             popup.setContent(htmlContent);
+//         });
+//     });
+//     createButtonCameraList(response);
+// }
+
+//Dibujar camaras en circuito:
 function drawCamerasByTrackID(response) {
-    var htmlContent = ''
-    var polyline;
-    response.webcams.forEach(element => {
-        htmlContent = '<h6>Pista ID ' + element.id + '</h6>';
-        polyline = L.polyline(element.coordinates, { color: 'blue', weight: 3 }).bindPopup(htmlContent).addTo(mapTrack);
-        polyline.on('popupopen', function (e) {
-            var popup = e.popup;
-            htmlContent = '<h6>Pista ID ' + element.id + '</h6><p>Coordenadas: ' + popup.getLatLng().lng + ', ' + popup.getLatLng().lat + '</p>';
-            popup.setContent(htmlContent);
-        });
+    response.webcams.forEach((element) => {
+        htmlContent = '<p>Camera ID:' + element.id + ' </p><p> Frecuencia:' + element.frecuency + '</p>';
+        L.marker(element.coordinate).addTo(mapTrack).bindPopup(htmlContent);
     });
     createButtonCameraList(response);
 }
@@ -96,23 +104,32 @@ function drawCamerasByTrackID(response) {
 //Armar lista de camaras por id de pista
 function createButtonCameraList(response) {
     //consoleP(response);
-    var tagButtonStart = '<button type="button" class="list-group-item list-group-item-action" onclick="popUpTrackPointOnMap(';
+    var tagButtonStart = '<button type="button" class="list-group-item list-group-item-action" onclick="popUpCameraPointOnMap(';
     var tagButtonEnd;
     var completeTagButton = '';
-    response.runners.forEach((element) => {
+    response.webcams.forEach((element) => {
         idNumber = element.id;
-        nombre = element.name;
-        sponsor = element.sponsor.name;
-        tagButtonEnd = idNumber + ')">' + idNumber + ' - ' + nombre + ' - ' + sponsor + '</button>';
+        frecuency = element.frecuency;
+        coordenada = element.coordinate.lat + ',' + element.coordinate.lon;
+        tagButtonEnd = idNumber + ',' + coordenada + ')">ID: ' + idNumber + ' - Frecuencia:' + frecuency + '</button>';
         completeTagButton += tagButtonStart + tagButtonEnd;
     });
 
     divElement = document.createElement('div');
     divElement.innerHTML = completeTagButton;
-    const list = document.getElementById('buttonRunnerList');
+    const list = document.getElementById('buttonCameraList');
     list.removeChild(list.firstElementChild);
     list.appendChild(divElement);
 
+}
+
+//popup nombre circuito
+function popUpCameraPointOnMap(id, lat, lon) {
+    htmlContent = '<h6> Camera ID: </h6><p>ID: ' + id + '</p>';
+    L.popup()
+        .setLatLng({ "lat": lat, "lon": lon })
+        .setContent(htmlContent)
+        .openOn(mapTrack);
 }
 
 getTracks().then(drawTrack);

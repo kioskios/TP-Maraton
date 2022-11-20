@@ -67,7 +67,7 @@ function popUpPointOnMap(id, map) {
 
 
 function consoleP(text) {
-    //console.log(text);
+    console.log(text);
 }
 
 
