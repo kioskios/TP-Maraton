@@ -52,11 +52,20 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Alpuin Matias'
 }).addTo(mapHealthCenter);
 
+
+//Iconos camaras
+var healthCenterIcon = L.icon({
+    iconUrl: '../img/iconHealthCenter.png',
+    iconSize: [38, 38], // size of the icon
+    iconAnchor: [22, 22], // point of the icon which will correspond to marker's location
+});
+
+
 //Dibuja centros de salud en el mapa
 function drawHealthCenter(response) {
     response.forEach((element) => {
         consoleP(element);
-        L.marker(element.coordenadas).addTo(mapHealthCenter).bindPopup(element.nombre);
+        L.marker(element.coordenadas,{ icon: healthCenterIcon }).addTo(mapHealthCenter).bindPopup(element.nombre);
     });
     createButtonHealthCenterList(response);
 }
