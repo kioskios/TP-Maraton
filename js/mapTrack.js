@@ -1,12 +1,16 @@
-const mapTrack = L.map('mapTrack').fitWorld();
+var mapTrack;
 
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    maxZoom: 19,
-    attribution: 'Alpuin Matias'
-}).addTo(mapTrack);
+function intialiceMap() {
+    mapTrack = L.map('mapTrack').fitWorld();
 
-//Punto UNGS
-mapTrack.setView([-34.52183764208916, -58.69985179010459], 17);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: 'Alpuin Matias'
+    }).addTo(mapTrack);
+
+    //Punto UNGS
+    mapTrack.setView([-34.52183764208916, -58.69985179010459], 17);
+}
 
 //Dibujar circuito:
 function drawTrack(response) {
@@ -132,4 +136,5 @@ function popUpCameraPointOnMap(id, lat, lon) {
         .openOn(mapTrack);
 }
 
+intialiceMap();
 getTracks().then(drawTrack);
