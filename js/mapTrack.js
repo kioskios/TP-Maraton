@@ -46,6 +46,7 @@ function createButtonTrackList(response) {
     document.getElementById('buttonTrackList').appendChild(divElement);
 
 }
+
 //popup nombre circuito
 function popUpTrackPointOnMap(id, lat, lon) {
     htmlContent = '<h6> Pista </h6><p>ID: ' + id + '</p>';
@@ -79,11 +80,20 @@ function createButtonRunnerList(response) {
 
 }
 
+//Iconos camaras
+var cameraIcon = L.icon({
+    iconUrl: '../img/camera.png',
+
+    iconSize: [38, 38], // size of the icon
+    iconAnchor: [22, 22], // point of the icon which will correspond to marker's location
+    //popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
 //Dibujar camaras en circuito:
 function drawCamerasByTrackID(response) {
     response.webcams.forEach((element) => {
         htmlContent = '<p>Camera ID:' + element.id + ' </p><p> Frecuencia:' + element.frecuency + '</p>';
-        L.marker(element.coordinate).addTo(mapTrack).bindPopup(htmlContent);
+        L.marker(element.coordinate, { icon: cameraIcon }).addTo(mapTrack).bindPopup(htmlContent);
     });
     createButtonCameraList(response);
 }
