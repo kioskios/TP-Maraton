@@ -52,13 +52,23 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     attribution: 'Alpuin Matias'
 }).addTo(mapHealthCenter);
 
-function createButtonHealthCenterList() {
+//Dibuja centros de salud en el mapa
+function drawHealthCenter(response) {
+    response.forEach((element) => {
+        consoleP(element);
+        L.marker(element.coordenadas).addTo(mapHealthCenter).bindPopup(element.nombre);
+    });
+    createButtonHealthCenterList(response);
+}
+
+//Armar lista de centros de salud
+function createButtonHealthCenterList(response) {
     var tagButtonStart = '<button type="button" class="list-group-item list-group-item-action" onclick="popUpHealthCenterPointOnMap(';
     var idNumber;
     var nombre;
     var tagButtonEnd;
     var completeTagButton = '';
-    dataPointsHealthCenter.forEach((element) => {
+    response.forEach((element) => {
         idNumber = element.id;
         nombre = element.nombre;
         tagButtonEnd = idNumber + ')">' + nombre + '</button>';
@@ -71,6 +81,7 @@ function createButtonHealthCenterList() {
 
 }
 
+//popup nombre centro de salud
 function popUpHealthCenterPointOnMap(id) {
     datoJson = dataPointsHealthCenter.filter(
         function (item) {
@@ -86,8 +97,7 @@ function popUpHealthCenterPointOnMap(id) {
         .openOn(mapHealthCenter);
 }
 
-addPointsOnMap(dataPointsHealthCenter, mapHealthCenter);
-createButtonHealthCenterList();
+drawHealthCenter(dataPointsHealthCenter);
 
 //Punto Inicio
 mapHealthCenter.setView(dataPointsHealthCenter[0].coordenadas, 17);

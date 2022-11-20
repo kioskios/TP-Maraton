@@ -20,7 +20,7 @@ var apiList = [];
 function getReplayByTrackID(trackID) {
     urltmp = url + '/replays/' + trackID;
     apiList.push(urltmp);
-    consolP(urltmp);
+    consoleP(urltmp);
     return downloadJsonFromApi(urltmp);
 }
 
@@ -28,7 +28,7 @@ function getReplayByTrackID(trackID) {
 function getReplayByTrackIDByRunnerID(trackID, runnerID) {
     urltmp = url + '/replays/' + trackID + '/runner/' + runnerID;
     apiList.push(urltmp);
-    consolP(urltmp);
+    consoleP(urltmp);
     return downloadJsonFromApi(urltmp);
 }
 
@@ -36,7 +36,7 @@ function getReplayByTrackIDByRunnerID(trackID, runnerID) {
 function getTracks() {
     urltmp = url + '/tracks/';
     apiList.push(urltmp);
-    consolP(urltmp);
+    consoleP(urltmp);
     return downloadJsonFromApi(urltmp);
 }
 
@@ -44,23 +44,23 @@ function getTracks() {
 function getTracksByTracksID(trackID) {
     urltmp = url + '/trackID/' + trackID;
     apiList.push(urltmp);
-    consolP(urltmp);
+    consoleP(urltmp);
     return downloadJsonFromApi(urltmp);
 }
 
 //descripción: 'Lista los corredores de la carrera.', ejemplo: '/api/tracks/42/runners/'
 function getRunnersByTracksID(trackID) {
-    urltmp = url + '/trackID/' + trackID + '/runners/';
+    urltmp = url + '/tracks/' + trackID + '/runners/';
     apiList.push(urltmp);
-    consolP(urltmp);
+    consoleP(urltmp);
     return downloadJsonFromApi(urltmp);
 }
 
 //descripción: 'Obtiene el corredor con id :runner_id', ejemplo: '/api/tracks/42/runners/780'
 function getRunnersByTruckIDByRunnerID(trackID, runnerID) {
-    urltmp = url + '/trackID/' + TrackID + '/runners/' + runnerID;
+    urltmp = url + '/tracks/' + TrackID + '/runners/' + runnerID;
     apiList.push(urltmp);
-    consolP(urltmp);
+    consoleP(urltmp);
     return downloadJsonFromApi(urltmp);
 }
 
@@ -68,7 +68,7 @@ function getRunnersByTruckIDByRunnerID(trackID, runnerID) {
 function getCameraByTrackID(trackID) {
     urltmp = url + '/webcams/' + trackID;
     apiList.push(urltmp);
-    consolP(urltmp);
+    consoleP(urltmp);
     return downloadJsonFromApi(urltmp);
 }
 
@@ -76,7 +76,7 @@ function getCameraByTrackID(trackID) {
 function getCameraByTrackIDByCameraID(trackID, cameraID) {
     urltmp = url + '/webcams/' + trackID + '/runners/' + cameraID;
     apiList.push(urltmp);
-    consolP(urltmp);
+    consoleP(urltmp);
     return downloadJsonFromApi(urltmp);
 }
 
@@ -84,7 +84,7 @@ function getCameraByTrackIDByCameraID(trackID, cameraID) {
 function getInscriptedUsers() {
     urltmp = url + '/inscriptions/';
     apiList.push(urltmp);
-    consolP(urltmp);
+    consoleP(urltmp);
     return downloadJsonFromApi(urltmp);
 }
 
@@ -92,10 +92,6 @@ function getInscriptedUsers() {
 function getInscriptedUsersStatus() {
     urltmp = url + '/inscriptions/status/';
     apiList.push(urltmp);
-    consolP(urltmp);
+    consoleP(urltmp);
     return downloadJsonFromApi(urltmp);
-}
-
-function consolP(text) {
-    console.log(text);
 }

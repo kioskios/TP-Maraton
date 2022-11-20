@@ -48,12 +48,7 @@ function success() {
     alert('Registro exitoso!');
 }
 
-function addPointsOnMap(array, map) {
-    array.forEach((element) => {
-        console.log({ element });
-        L.marker(element.coordenadas).addTo(map).bindPopup(element.nombre);
-    });
-}
+
 
 function popUpPointOnMap(id, map) {
     datoJson = dataTrakPosition.filter(
@@ -68,6 +63,11 @@ function popUpPointOnMap(id, map) {
         .setLatLng(datoJson[0].coordenadas)
         .setContent(htmlContent)
         .openOn(map);
+}
+
+
+function consoleP(text) {
+    //console.log(text);
 }
 
 
