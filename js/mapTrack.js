@@ -50,7 +50,9 @@ function createButtonTrackList(response) {
 //popup nombre circuito
 function popUpTrackPointOnMap(id, lat, lon) {
     htmlContent = '<h6> Pista </h6><p>ID: ' + id + '</p>';
-    L.popup()
+    L.popup({
+        offset: [-30, -30]
+    })
         .setLatLng({ "lat": lat, "lon": lon })
         .setContent(htmlContent)
         .openOn(mapTrack);
@@ -86,13 +88,12 @@ var cameraIcon = L.icon({
 
     iconSize: [38, 38], // size of the icon
     iconAnchor: [22, 22], // point of the icon which will correspond to marker's location
-    //popupAnchor: [-3, -76] // point from which the popup should open relative to the iconAnchor
 });
 
 //Dibujar camaras en circuito:
 function drawCamerasByTrackID(response) {
     response.webcams.forEach((element) => {
-        htmlContent = '<p>Camera ID:' + element.id + ' </p><p> Frecuencia:' + element.frecuency + '</p>';
+        htmlContent = '<p>Camera ID:' + element.id + '</hp> Frecuencia:' + element.frecuency + '</p>';
         L.marker(element.coordinate, { icon: cameraIcon }).addTo(mapTrack).bindPopup(htmlContent);
     });
     createButtonCameraList(response);
@@ -123,8 +124,10 @@ function createButtonCameraList(response) {
 
 //popup nombre circuito
 function popUpCameraPointOnMap(id, lat, lon) {
-    htmlContent = '<h6> Camera ID: </h6><p>ID: ' + id + '</p>';
-    L.popup()
+    htmlContent = '<p> Camera ID: ' + id + '</p>';
+    L.popup({
+        offset: [0, -10]
+    })
         .setLatLng({ "lat": lat, "lon": lon })
         .setContent(htmlContent)
         .openOn(mapTrack);
