@@ -14,6 +14,7 @@ function downloadJsonFromApi(url) {
 
 //URLS
 const url = 'https://fasterthanall.herokuapp.com/api';
+
 var apiList = [];
 
 //descripción: 'Obtiene las posiciones de los corredores en la carrera :track_id', ejemplo: '/api/replays/42'
