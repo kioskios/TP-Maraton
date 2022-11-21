@@ -8,6 +8,7 @@ function createUserList(response) {
     var completeTagButton = '';
     var htmlContent = '';
     var numReg = 0;
+    var userStatus;
     response.data.forEach((element) => {
         numReg++;
         userName = element.participant.name;
@@ -17,15 +18,20 @@ function createUserList(response) {
         userPhoneNumber = element.participant.phoneNumber;
         userEmail = element.participant.email;
 
-        userStatus = getFilteredByKey(userStatusJson, 'description', element.status);
+        userStatusJson.data.forEach((status) => {
+            if (status.id == element.status) {
+                // consoleP(status.description);
+                userStatus = status.description;
+                return;
+            }
+        })
         consoleP(userStatus);
-
         userCreation = element.creation;
         userUpdate = element.lastUpdate;
 
         tagButtonEnd = ')">BottonTest</button>';
         completeTagButton = tagButtonStart + tagButtonEnd;
-        htmlContent += '<tr><th scope="row">' + numReg + '</th><td>' + userName + '</td><td>' + userLastName + '</td><td>' + userDNI + '</td><td>' + userAge + '</td><td>' + userPhoneNumber + '</td><td>' + userEmail + '</td><td>' + 'sts' + '</td><td>' + userCreation + '</td><td>' + userUpdate + '</td><td>' + completeTagButton + '</td></tr>'
+        htmlContent += '<tr><th scope="row">' + numReg + '</th><td>' + userName + '</td><td>' + userLastName + '</td><td>' + userDNI + '</td><td>' + userAge + '</td><td>' + userPhoneNumber + '</td><td>' + userEmail + '</td><td>' + userStatus + '</td><td>' + userCreation + '</td><td>' + userUpdate + '</td><td>' + completeTagButton + '</td></tr>'
     });
 
     tbodyElement = document.createElement('tbody');
