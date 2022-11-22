@@ -250,3 +250,7 @@ label #sidebar_btn:hover {
         display: block;
     }
 }
+
+select {
+    min-width: 125px !important;
+}

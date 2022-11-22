@@ -9,7 +9,10 @@ function createUserList(response) {
     var htmlContent = '';
     var numReg = 0;
     var userStatus;
+    var selectButton = '';
+    //'<select class="form-select form-select-lg mb-3" aria-label=".form-select-lg"><option selected>' + opc1 + '</option><option>' + opc2 + '</option><option>' + opc3 + '</option></select>';
     response.data.forEach((element) => {
+        var opc = [];
         numReg++;
         userName = element.participant.name;
         userLastName = element.participant.lastname;
@@ -20,18 +23,23 @@ function createUserList(response) {
 
         userStatusJson.data.forEach((status) => {
             if (status.id == element.status) {
-                // consoleP(status.description);
                 userStatus = status.description;
-                return;
+                opc.push('<option selected>' + status.description + '</option>');
+            } else {
+                opc.push('<option>' + status.description + '</option>');
             }
         })
-        consoleP(userStatus);
-        userCreation = element.creation;
-        userUpdate = element.lastUpdate;
+
+        selectButton = '<select class="form-select" aria-label=".form-select-lg example">' + opc[0] + opc[1] + opc[2] + '</select>';
+
+        time = new Date(element.creation);
+        userCreation = time.getDate() + '/' + (time.getMonth() + 1) + '/' + time.getFullYear();
+        time = new Date(element.lastUpdate);
+        userUpdate = time.getDate() + '/' + (time.getMonth() + 1) + '/' + time.getFullYear();
 
         tagButtonEnd = ')">BottonTest</button>';
         completeTagButton = tagButtonStart + tagButtonEnd;
-        htmlContent += '<tr><th scope="row">' + numReg + '</th><td>' + userName + '</td><td>' + userLastName + '</td><td>' + userDNI + '</td><td>' + userAge + '</td><td>' + userPhoneNumber + '</td><td>' + userEmail + '</td><td>' + userStatus + '</td><td>' + userCreation + '</td><td>' + userUpdate + '</td><td>' + completeTagButton + '</td></tr>'
+        htmlContent += '<tr><th scope="row">' + numReg + '</th><td>' + userName + '</td><td>' + userLastName + '</td><td>' + userDNI + '</td><td>' + userAge + '</td><td>' + userPhoneNumber + '</td><td>' + userEmail + '</td><td>' + selectButton + '</td><td>' + userCreation + '</td><td>' + userUpdate + '</td><td>';
     });
 
     tbodyElement = document.createElement('tbody');

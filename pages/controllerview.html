@@ -53,18 +53,18 @@
     <div class="sidebar">
         <div class="profile_info">
             <img src="../img/user.png" class="profile_image" alt="">
-            <h4>Controlador 1</h4>
+            <h4>Controlador #ID1</h4>
         </div>
         <a href="#"><i class="fas fa-desktop"></i><span>Lista de inscriptos</span></a>
         <a href="#"><i class="fas fa-cogs"></i><span>Registrar Pagos</span></a>
         <a href="#"><i class="fas fa-table"></i><span>Exportar reporte SS</span></a>
-        <a href="#"><i class="fas fa-info-circle"></i><span>About</span></a>
-        <a href="#"><i class="fas fa-sliders-h"></i><span>Settings</span></a>
+        <a href="#"><i class="fas fa-sliders-h"></i><span>Configuraciones</span></a>
     </div>
     <!--sidebar end-->
 
     <div class="content" style="background-color: white;">
         <div>
+            <hr>
             <table class="table" id="regUserList">
                 <thead class="table-dark">
                     <tr>
@@ -78,13 +78,15 @@
                         <th scope="col">Estado</th>
                         <th scope="col">Creado</th>
                         <th scope="col">Update</th>
-                        <th scope="col">Opcion</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr></tr>
                 </tbody>
             </table>
+            <div class="col-4">
+                <button class="w-60 btn btn-primary btn-rg" onclick="success()">Guardar cambios</button>
+            </div>
         </div>
     </div>
 
