@@ -48,13 +48,13 @@ header {
 .sidebar {
     z-index: 1;
     top: 0;
-    background: #2f323a;
+    background: 22242A;
     margin-top: 70px;
     padding-top: 30px;
     position: fixed;
     left: 0;
     width: 250px;
-    height: calc(100% - 9%);
+    height: calc(100% - 25%);
     transition: 0.5s;
     transition-property: left;
     overflow-y: auto;
