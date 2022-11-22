@@ -48,13 +48,13 @@ header {
 .sidebar {
     z-index: 1;
     top: 0;
-    background: 22242A;
-    margin-top: 70px;
+    background: #22242A;
+    margin-top: 60px;
     padding-top: 30px;
     position: fixed;
     left: 0;
     width: 250px;
-    height: calc(100% - 25%);
+    height: calc(100% - 0%);
     transition: 0.5s;
     transition-property: left;
     overflow-y: auto;
@@ -135,7 +135,7 @@ label #sidebar_btn:hover {
     margin-top: 60px;
     padding: 20px;
     margin-left: 250px;
-    background: url(background.png) no-repeat;
+    /* background: url(background.png) no-repeat; */
     background-position: center;
     background-size: cover;
     height: 100vh;
