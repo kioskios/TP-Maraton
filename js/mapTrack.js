@@ -101,6 +101,7 @@ function createButtonRunnerList(response) {
 }
 
 var line;
+var htmlRunnerContent = '';
 function popUpRunnerOnMap(runner_id) {
     constPolilyne.forEach(element => {
         if (element.id_track == trackIDSelected) {
@@ -108,6 +109,7 @@ function popUpRunnerOnMap(runner_id) {
             return
         }
     });
+    htmlRunnerContent += '<p>Corredor ID:' + runner_id + '</p>';
     getReplayByTrackIDByRunnerID(trackIDSelected, runner_id)
         .then(drawRunnerOnMap);
 }
@@ -133,12 +135,19 @@ function drawRunnerOnMap(response) {
 function drawCheckpointsOnMap(checkpoints) {
     var timeIni = null;
     var timeLast = null;
+    var nroRg = 0;
+    var timeTotal;
+    //checkpoints = ordenarAsc(checkpoints,'timeStamp');
+    consoleP(checkpoints);
     checkpoints.forEach(element => {
-        consoleP(element.timeStamp);
+        nroRg++;
         if (timeIni == null) {
             timeIni = new Date(element.timeStamp);
+            timeTotal = timeIni;
+            htmlRunnerContent += '<p>Checkpoint' + nroRg + ' ' + timeIni.getHours() + ':' + timeIni.getMinutes().toString().padStart(2, 0) + '</p>';
         } else {
             timeLast = new Date(element.timeStamp);
+            htmlRunnerContent += '<p>Checkpoint' + nroRg + ' ' + timeLast.getHours() + ':' + timeLast.getMinutes().toString().padStart(2, 0) + '</p>';
 
             intervalo = (timeLast - timeIni);
             animatedMoveMarket(intervalo);
@@ -146,6 +155,10 @@ function drawCheckpointsOnMap(checkpoints) {
             timeIni = timeLast;
         }
     });
+
+    //htmlRunnerContent += '<p>Tiempo total:' + nroRg + ' ' + (timeTotal) + '</p>';
+    animatedMoveMarket(intervalo);
+    htmlRunnerContent = '';
 }
 
 //Iconos camaras
@@ -209,14 +222,19 @@ function animatedMoveMarket(intervalo) {
         }
     });
 
+    L.popup({
+        offset: [-0, -100]
+    })
+        .setLatLng(animatedMarker.getLatLng())
+        .setContent(htmlRunnerContent)
+        .openOn(mapTrack);
+
     mapTrack.addLayer(animatedMarker);
 
     animatedMarker = L.animatedMarker(line.getLatLngs(), {
         distance: 200,  // meters
         interval: intervalo, // milliseconds
     });
-    animatedMarkerR.push(animatedMarker);
-    animatedMarker.start();
 }
 
 intialiceMap();
