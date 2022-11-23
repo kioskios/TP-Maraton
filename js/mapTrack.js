@@ -12,6 +12,9 @@ function intialiceMap() {
     mapTrack.setView([-34.52183764208916, -58.69985179010459], 17);
 }
 
+
+
+var constPolilyne = [];
 //Dibujar circuito:
 function drawTrack(response) {
     var htmlContent = ''
@@ -19,6 +22,7 @@ function drawTrack(response) {
     response.tracks.forEach(element => {
         htmlContent = '<h6>Pista ID ' + element.id + '</h6>';
         polyline = L.polyline(element.coordinates, { color: 'blue', weight: 3 }).bindPopup(htmlContent).addTo(mapTrack);
+        constPolilyne.push(new PolyLineT(element.id, polyline));
         polyline.on('popupopen', function (e) {
             var popup = e.popup;
             htmlContent = '<h6>Pista ID ' + element.id + '</h6><p>Coordenadas: ' + popup.getLatLng().lng + ', ' + popup.getLatLng().lat + '</p>';
@@ -48,22 +52,36 @@ function createButtonTrackList(response) {
 }
 
 //popup nombre circuito
+var trackIDSelected;
 function popUpTrackPointOnMap(id, lat, lon) {
     htmlContent = '<h6> Pista </h6><p>ID: ' + id + '</p>';
+    trackIDSelected = id;
     L.popup({
-        offset: [-30, -30]
+        offset: [-30, -90]
     })
         .setLatLng({ "lat": lat, "lon": lon })
         .setContent(htmlContent)
         .openOn(mapTrack);
-    getRunnersByTracksID(id).then(createButtonRunnerList);
-    getCameraByTrackID(id).then(drawCamerasByTrackID);
+
+    getRunnersByTracksID(id)
+        .then(createButtonRunnerList)
+    getCameraByTrackID(id).
+        then(drawCamerasByTrackID);
 }
 
+////Iconos corredores
+var iconRunner = L.icon({
+    iconUrl: '../img/iconRunner.png',
+
+    iconSize: [38, 38], // size of the icon
+    iconAnchor: [22, 22], // point of the icon which will correspond to marker's location
+});
+
 //Armar lista de corredores por id de pista
+runnerList = [];
 function createButtonRunnerList(response) {
-    //consoleP(response);
-    var tagButtonStart = '<button type="button" class="list-group-item list-group-item-action" onclick="popUpTrackPointOnMap(';
+    consoleP(trackIDSelected);
+    var tagButtonStart = '<button type="button" class="list-group-item list-group-item-action" onclick="popUpRunnerOnMap(';
     var tagButtonEnd;
     var completeTagButton = '';
     response.runners.forEach((element) => {
@@ -72,6 +90,7 @@ function createButtonRunnerList(response) {
         sponsor = element.sponsor.name;
         tagButtonEnd = idNumber + ')">' + idNumber + ' - ' + nombre + ' - ' + sponsor + '</button>';
         completeTagButton += tagButtonStart + tagButtonEnd;
+        runnerList.push(new Runner(idNumber, nombre, sponsor));
     });
 
     divElement = document.createElement('div');
@@ -79,7 +98,54 @@ function createButtonRunnerList(response) {
     const list = document.getElementById('buttonRunnerList');
     list.removeChild(list.firstElementChild);
     list.appendChild(divElement);
+}
 
+var line;
+function popUpRunnerOnMap(runner_id) {
+    constPolilyne.forEach(element => {
+        if (element.id_track == trackIDSelected) {
+            line = element.polyline;
+            return
+        }
+    });
+    getReplayByTrackIDByRunnerID(trackIDSelected, runner_id)
+        .then(drawRunnerOnMap);
+}
+
+function popUpAllRunnersOnMap() {
+    constPolilyne.forEach(element => {
+        if (element.id_track == trackIDSelected) {
+            line = element.polyline;
+            return
+        }
+    });
+    runnerList.forEach(element => {
+        getReplayByTrackIDByRunnerID(trackIDSelected, element.id)
+            .then(drawRunnerOnMap);
+    });
+}
+
+function drawRunnerOnMap(response) {
+    checkpoints = response.positions.checkpoints
+    drawCheckpointsOnMap(checkpoints);
+}
+
+function drawCheckpointsOnMap(checkpoints) {
+    var timeIni = null;
+    var timeLast = null;
+    checkpoints.forEach(element => {
+        consoleP(element.timeStamp);
+        if (timeIni == null) {
+            timeIni = new Date(element.timeStamp);
+        } else {
+            timeLast = new Date(element.timeStamp);
+
+            intervalo = (timeLast - timeIni);
+            animatedMoveMarket(intervalo);
+
+            timeIni = timeLast;
+        }
+    });
 }
 
 //Iconos camaras
@@ -131,6 +197,26 @@ function popUpCameraPointOnMap(id, lat, lon) {
         .setLatLng({ "lat": lat, "lon": lon })
         .setContent(htmlContent)
         .openOn(mapTrack);
+}
+
+var animatedMarkerR = [];
+function animatedMoveMarket(intervalo) {
+    animatedMarker = L.animatedMarker(line.getLatLngs(), {
+        autoStart: true,
+        icon: iconRunner,
+        onEnd: function () {
+            mapTrack.removeLayer(this);
+        }
+    });
+
+    mapTrack.addLayer(animatedMarker);
+
+    animatedMarker = L.animatedMarker(line.getLatLngs(), {
+        distance: 200,  // meters
+        interval: intervalo, // milliseconds
+    });
+    animatedMarkerR.push(animatedMarker);
+    animatedMarker.start();
 }
 
 intialiceMap();
